@@ -140,6 +140,10 @@
         <source src="goro_attack1.mp3" type="audio/mpeg">
     </audio>
     <script>
+        // Weapon Health System
+        let weaponHealth = 30; // Starts full
+        let weaponBroken = false;
+        
         let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
         let totalClicks = parseInt(localStorage.getItem('goroTotalClicks') || '0');
         const myClicksEl = document.getElementById('myClicks');
