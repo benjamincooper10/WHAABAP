@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goro Click</title>
-    <!-- ✅ GORO3 FAVICON -->
+    <title>Goro Attacls</title>
     <link rel="icon" type="image/jpeg" href="goro3.jpg">
     <link rel="apple-touch-icon" href="goro3.jpg">
     <style>
@@ -28,22 +27,18 @@
             width: 280px !important; 
             height: 280px !important;
             border-radius: 20px;
-            border: 4px solid #fff; /* ✅ WHITE HIGHLIGHT BORDER ONLY */
+            border: 4px solid #fff;
             background: transparent;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            box-shadow: 
-                0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: all 0.1s ease;
         }
-        #clickButton:hover {
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-        }
+        #clickButton:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
         #clickButton:active {
             transform: translateY(3px) scale(0.97) !important;
-            box-shadow: 
-                0 5px 10px rgba(0,0,0,0.6);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
         }
         #goroImg {
             width: 100% !important;
@@ -51,7 +46,7 @@
             object-fit: contain;
             display: block;
             pointer-events: none;
-            border-radius: 16px; /* Inside white border */
+            border-radius: 16px;
         }
         .stats {
             display: flex;
@@ -79,7 +74,7 @@
             cursor: pointer;
             z-index: 100;
         }
-        /* ✅ CLEAN goro_2.png - NO BORDER/HIGHLIGHT */
+        /* ✅ SIDE-TO-SIDE ONLY - NO SPIN */
         .goroBurst {
             position: fixed !important;
             width: 100px !important;
@@ -87,24 +82,28 @@
             pointer-events: none;
             z-index: 50;
             opacity: 0;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8)); /* Subtle glow only */
-            animation: burstFade 1.2s ease-out forwards;
-            object-fit: contain; /* Full image visible */
-            background: none !important; /* No background */
-            border: none !important; /* No border */
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
+            animation: sideFade 1.2s ease-out forwards;
+            object-fit: contain;
+            background: none !important;
+            border: none !important;
         }
-        @keyframes burstFade {
+        @keyframes sideFade {
             0% { 
                 opacity: 0.9; 
-                transform: scale(0.2) rotate(0deg); 
+                transform: translateX(0px) scale(0.8); 
             }
-            40% { 
+            30% { 
                 opacity: 1; 
-                transform: scale(1.2) rotate(180deg); 
+                transform: translateX(30px) scale(1.1); 
+            }
+            70% { 
+                opacity: 0.7; 
+                transform: translateX(-20px) scale(1.0); 
             }
             100% { 
                 opacity: 0; 
-                transform: scale(0.3) rotate(360deg); 
+                transform: translateX(60px) scale(0.8); 
             }
         }
         @media (max-width: 480px) {
@@ -178,8 +177,6 @@
             burst.style.left = x + 'px';
             burst.style.top = y + 'px';
             document.body.appendChild(burst);
-            
-            console.log('✅ Goro_2.png burst created at', x, y);
             
             setTimeout(() => {
                 if (burst.parentNode) burst.parentNode.removeChild(burst);
