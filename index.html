@@ -129,7 +129,7 @@
     </div>
     
     <button id="clickButton">
-        <img src="Goro_2.png" alt="Goro" id="goroImg"> <!-- NEW MAIN BUTTON -->
+        <img src="Goro_2.png" alt="Goro" id="goroImg"> <!-- Goro_2.png button -->
     </button>
     
     <audio id="goroSound" preload="auto">
@@ -163,7 +163,7 @@
         
 function createGoroBurst() {
     const burst = document.createElement('img');
-    burst.src = 'Goro_2.png'; // ✅ Original Goro as bursts now
+    burst.src = 'Goro_2.png'; // ✅ Goro_2.png bursts too
     burst.className = 'goroBurst';
     burst.onerror = () => console.log('❌ Goro_2.png NOT FOUND');
     
