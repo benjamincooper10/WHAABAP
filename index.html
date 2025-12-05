@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goro Attacks!</title>
+    <title>Goro Click</title>
+    <!-- ✅ GORO3 FAVICON -->
+    <link rel="icon" type="image/jpeg" href="goro3.jpg">
+    <link rel="apple-touch-icon" href="goro3.jpg">
     <style>
-{ margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #000;
@@ -22,50 +25,33 @@
             position: relative;
         }
         #clickButton {
-            width: 280px; height: 280px; /* :white_check_mark: SQUARE */
-            width: 280px !important;
-            height: 280px !important; /* :white_check_mark: FORCED SQUARE */
+            width: 280px !important; 
+            height: 280px !important;
             border-radius: 20px;
-            border: none;
-            background: linear-gradient(145deg, #ffffff, #e6e6e6);
-            border: 4px solid #ddd;
-            background: #fff;
+            border: 4px solid #fff; /* ✅ WHITE HIGHLIGHT BORDER ONLY */
+            background: transparent;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            box-shadow:
-                8px 8px 16px rgba(0,0,0,0.4),
-                -8px -8px 16px rgba(255,255,255,0.3);
-            transition: all 0.08s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                0 10px 20px rgba(0,0,0,0.5),
-                inset 0 2px 0 rgba(255,255,255,0.8);
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.5);
             transition: all 0.1s ease;
         }
         #clickButton:hover {
             box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
         #clickButton:active {
-            transform: translateY(4px) scale(0.98); /* :white_check_mark: PRESS DOWN */
             transform: translateY(3px) scale(0.97) !important;
-            box-shadow:
-                4px 4px 8px rgba(0,0,0,0.5),
-                inset 2px 2px 8px rgba(0,0,0,0.2);
-                0 5px 10px rgba(0,0,0,0.6),
-                inset 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 5px 10px rgba(0,0,0,0.6);
         }
         #goroImg {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
             width: 100% !important;
-            height: 100% !important; /* :white_check_mark: FORCED FILL */
-            object-fit: contain; /* :white_check_mark: SHOWS FULL IMAGE */
+            height: 100% !important;
+            object-fit: contain;
             display: block;
             pointer-events: none;
-            transition: filter 0.08s ease;
-        }
-        #clickButton:active #goroImg {
-            filter: brightness(1.3) contrast(1.1);
+            border-radius: 16px; /* Inside white border */
         }
         .stats {
             display: flex;
@@ -93,56 +79,45 @@
             cursor: pointer;
             z-index: 100;
         }
+        /* ✅ CLEAN goro_2.png - NO BORDER/HIGHLIGHT */
         .goroBurst {
-            position: fixed;
-            width: 80px; height: 80px;
             position: fixed !important;
             width: 100px !important;
             height: 100px !important;
-            border: 2px solid #fff;
             pointer-events: none;
-            z-index: 10;
             z-index: 50;
             opacity: 0;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)) brightness(0.7);
-            mix-blend-mode: screen; /* :white_check_mark: PNG transparency fix */
-            animation: burstFade 1s ease-out forwards;
-            filter: drop-shadow(0 0 15px #00ff88);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8)); /* Subtle glow only */
             animation: burstFade 1.2s ease-out forwards;
-            border-radius: 12px;
-            object-fit: cover;
-            object-fit: contain; /* :white_check_mark: FULL goro_2.png VISIBLE */
-            background: rgba(255,255,255,0.1); /* Debug background */
+            object-fit: contain; /* Full image visible */
+            background: none !important; /* No background */
+            border: none !important; /* No border */
         }
         @keyframes burstFade {
-            0% { opacity: 0.8; transform: scale(0.3) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1.1) rotate(180deg); }
-            100% { opacity: 0; transform: scale(0.1) rotate(360deg); }
-            0% {
-                opacity: 1;
-                transform: scale(0.2) rotate(0deg);
+            0% { 
+                opacity: 0.9; 
+                transform: scale(0.2) rotate(0deg); 
             }
-            40% {
-                opacity: 1;
-                transform: scale(1.2) rotate(180deg);
+            40% { 
+                opacity: 1; 
+                transform: scale(1.2) rotate(180deg); 
             }
-            100% {
-                opacity: 0;
-                transform: scale(0.3) rotate(360deg);
+            100% { 
+                opacity: 0; 
+                transform: scale(0.3) rotate(360deg); 
             }
         }
         @media (max-width: 480px) {
             .stats { gap: 1rem; font-size: 1.2rem; }
             .stat-number { font-size: 2rem; }
-            #clickButton { width: 220px; height: 220px; }
-            .goroBurst { width: 60px; height: 60px; }
             #clickButton { width: 220px !important; height: 220px !important; }
             .goroBurst { width: 80px !important; height: 80px !important; }
         }
     </style>
 </head>
 <body>
-    <button id="unmute">:loud_sound: Unmute</button>
+    <button id="unmute">🔊 Unmute</button>
+    
     <div class="stats">
         <div>
             <span class="stat-number" id="myClicks">0</span>
@@ -153,26 +128,32 @@
             <div>Total Clicks</div>
         </div>
     </div>
+    
     <button id="clickButton">
         <img src="goro.jpg" alt="Goro" id="goroImg">
     </button>
+    
     <audio id="goroSound" preload="auto">
         <source src="goro_attack1.mp3" type="audio/mpeg">
     </audio>
+
     <script>
         let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
         let totalClicks = parseInt(localStorage.getItem('goroTotalClicks') || '0');
+        
         const myClicksEl = document.getElementById('myClicks');
         const totalClicksEl = document.getElementById('totalClicks');
         const clickButton = document.getElementById('clickButton');
         const goroSound = document.getElementById('goroSound');
         const unmuteBtn = document.getElementById('unmute');
         const goroImg = document.getElementById('goroImg');
+        
         function updateDisplay() {
             myClicksEl.textContent = myClicks.toLocaleString();
             totalClicksEl.textContent = totalClicks.toLocaleString();
         }
         updateDisplay();
+        
         unmuteBtn.addEventListener('click', () => {
             goroSound.volume = 0.1;
             goroSound.play().then(() => {
@@ -180,36 +161,40 @@
                 unmuteBtn.style.display = 'none';
             }).catch(() => {});
         });
+        
         function createGoroBurst() {
             const burst = document.createElement('img');
-            burst.src = 'Goro_2.png'; /* :white_check_mark: FIXED FILENAME */
-            burst.src = 'Goro_2.png'; // :white_check_mark: YOUR EXACT FILENAME
+            burst.src = 'goro_2.png';
             burst.className = 'goroBurst';
-            const imgSize = 80;
-            const padding = 20;
-            burst.onerror = () => console.log(':x: Goro_2.png NOT FOUND');
+            burst.onerror = () => console.log('❌ goro_2.png NOT FOUND');
+            
             const imgSize = 100;
             const padding = 30;
             const maxX = window.innerWidth - imgSize - padding;
             const maxY = window.innerHeight - imgSize - padding;
             const x = Math.random() * maxX;
             const y = Math.random() * maxY;
+            
             burst.style.left = x + 'px';
             burst.style.top = y + 'px';
             document.body.appendChild(burst);
-            console.log(':white_check_mark: Goro_2.png burst created at', x, y);
+            
+            console.log('✅ goro_2.png burst created at', x, y);
+            
             setTimeout(() => {
                 if (burst.parentNode) burst.parentNode.removeChild(burst);
-            }, 1000);
             }, 1200);
         }
+        
         clickButton.addEventListener('click', (e) => {
             myClicks++;
             totalClicks++;
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
             updateDisplay();
+            
             createGoroBurst();
+            
             if (goroSound.duration > 0) {
                 const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
                 goroSound.volume = volume;
@@ -217,19 +202,11 @@
                 goroSound.play().catch(() => {});
             }
         });
+        
         window.addEventListener('beforeunload', () => {
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
         });
-        document.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 1) e.preventDefault();
-        }, { passive: false });
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) e.preventDefault();
-            lastTouchEnd = now;
-        }, { passive: false });
     </script>
 </body>
 </html>
