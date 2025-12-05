@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goro Attacks</title>
+    <title>Goro Attacks!</title>
     <link rel="icon" type="image/jpeg" href="goro3.jpg">
     <link rel="apple-touch-icon" href="goro3.jpg">
     <style>
@@ -140,7 +140,6 @@
     </style>
 </head>
 <body>
-    <button id="unmute">Unmute</button>
     
     <div class="stats">
         <div>
@@ -154,7 +153,7 @@
     </div>
 
     <button id="clickButton">
-        <img src="Goro2.png" alt="Goro" id="goroImg">
+        <img src="Goro_2.png" alt="Goro" id="goroImg">
     </button>
 
     <audio id="goroSound" preload="auto">
@@ -208,7 +207,7 @@
 
         function createGoroBurst() {
             const burst = document.createElement('img');
-            burst.src = 'Goro2.png';
+            burst.src = 'Goro_2.png';
             burst.className = 'goroBurst';
             const imgSize = window.innerWidth < 480 ? 80 : 100;
             const padding = 30;
