@@ -1,208 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goro Attacls</title>
-<link rel="icon" type="image/jpeg" href="goro3.jpg">
-<link rel="apple-touch-icon" href="goro3.jpg">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-background: #000;
-color: #fff;
-overflow: hidden;
-user-select: none;
-touch-action: manipulation;
-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 2rem;
-position: relative;
-}
-#clickButton {
-width: 280px !important;
-height: 280px !important;
-border-radius: 20px;
-border: 4px solid #fff;
-background: transparent;
-cursor: pointer;
-position: relative;
-overflow: hidden;
-box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-transition: all 0.1s ease;
-}
-#clickButton:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
-#clickButton:active {
-transform: translateY(3px) scale(0.97) !important;
-box-shadow: 0 5px 10px rgba(0,0,0,0.6);
-}
-#goroImg {
-width: 100% !important;
-height: 100% !important;
-object-fit: contain;
-display: block;
-pointer-events: none;
-border-radius: 16px;
-}
-.stats {
-display: flex;
-gap: 3rem;
-font-size: 1.5rem;
-font-weight: 600;
-text-align: center;
-}
-.stat-number {
-font-size: 3rem;
-display: block;
-font-weight: 900;
-color: #00ff88;
-text-shadow: 0 0 20px #00ff88;
-}
-#unmute {
-position: fixed;
-top: 20px; right: 20px;
-padding: 12px 24px;
-background: #333;
-color: #fff;
-border: none;
-border-radius: 25px;
-font-weight: 600;
-cursor: pointer;
-z-index: 100;
-}
-/* ✅ SIDE-TO-SIDE ONLY - NO SPIN */
-.goroBurst {
-position: fixed !important;
-width: 100px !important;
-height: 100px !important;
-pointer-events: none;
-z-index: 50;
-opacity: 0;
-filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
-animation: sideFade 1.2s ease-out forwards;
-object-fit: contain;
-background: none !important;
-border: none !important;
-}
-@keyframes sideFade {
-0% {
-opacity: 0.9;
-transform: translateX(0px) scale(0.8);
-}
-30% {
-opacity: 1;
-transform: translateX(30px) scale(1.1);
-}
-70% {
-opacity: 0.7;
-transform: translateX(-20px) scale(1.0);
-}
-100% {
-opacity: 0;
-transform: translateX(60px) scale(0.8);
-}
-}
-@media (max-width: 480px) {
-.stats { gap: 1rem; font-size: 1.2rem; }
-.stat-number { font-size: 2rem; }
-#clickButton { width: 220px !important; height: 220px !important; }
-.goroBurst { width: 80px !important; height: 80px !important; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goro Attacks</title>
+    <link rel="icon" type="image/jpeg" href="goro3.jpg">
+    <link rel="apple-touch-icon" href="goro3.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            user-select: none;
+            touch-action: manipulation;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+        }
+        #clickButton {
+            width: 280px !important; 
+            height: 280px !important;
+            border-radius: 20px;
+            border: 4px solid #fff;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.08s ease;
+        }
+        #clickButton:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+        #clickButton:active {
+            transform: translateY(3px) scale(0.97) !important;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
+        }
+        #goroImg {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
+            display: block;
+            pointer-events: none;
+            border-radius: 16px;
+        }
+        .stats {
+            display: flex;
+            gap: 3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3rem;
+            display: block;
+            font-weight: 900;
+            color: #00ff88;
+            text-shadow: 0 0 20px #00ff88;
+        }
+        #unmute {
+            position: fixed;
+            top: 20px; right: 20px;
+            padding: 12px 24px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .goroBurst {
+            position: fixed !important;
+            width: 100px !important;
+            height: 100px !important;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
+            animation: sideFade 1.2s ease-out forwards;
+            object-fit: contain;
+            background: none !important;
+            border: none !important;
+        }
+        @keyframes sideFade {
+            0% { opacity: 0.9; transform: translateX(0px) scale(0.8); }
+            30% { opacity: 1; transform: translateX(30px) scale(1.1); }
+            70% { opacity: 0.7; transform: translateX(-20px) scale(1.0); }
+            100% { opacity: 0; transform: translateX(60px) scale(0.8); }
+        }
+        @media (max-width: 480px) {
+            .stats { gap: 1rem; font-size: 1.2rem; }
+            .stat-number { font-size: 2rem; }
+            #clickButton { width: 220px !important; height: 220px !important; }
+            .goroBurst { width: 80px !important; height: 80px !important; }
+        }
+    </style>
 </head>
 <body>
-<button id="unmute">🔊 Unmute</button>
+    <button id="unmute">🔊 Unmute</button>
+    
+    <div class="stats">
+        <div>
+            <span class="stat-number" id="myClicks">0</span>
+            <div>My Clicks</div>
+        </div>
+        <div>
+            <span class="stat-number" id="totalClicks">0</span>
+            <div>Total Clicks</div>
+        </div>
+    </div>
+    
+    <button id="clickButton">
+        <img src="Goro_2.png" alt="Goro" id="goroImg">
+    </button>
+    
+    <audio id="goroSound" preload="auto">
+        <source src="goro_attack1.mp3" type="audio/mpeg">
+    </audio>
 
-<div class="stats">
-<div>
-<span class="stat-number" id="myClicks">0</span>
-<div>My Clicks</div>
-</div>
-<div>
-<span class="stat-number" id="totalClicks">0</span>
-<div>Total Clicks</div>
-</div>
-</div>
-
-<button id="clickButton">
-<img src="Goro_2.png" alt="Goro" id="goroImg"> <!-- Goro_2.png button -->
-</button>
-
-<audio id="goroSound" preload="auto">
-<source src="goro_attack1.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
-let totalClicks = parseInt(localStorage.getItem('goroTotalClicks') || '0');
-
-const myClicksEl = document.getElementById('myClicks');
-const totalClicksEl = document.getElementById('totalClicks');
-const clickButton = document.getElementById('clickButton');
-const goroSound = document.getElementById('goroSound');
-const unmuteBtn = document.getElementById('unmute');
-const goroImg = document.getElementById('goroImg');
-
-function updateDisplay() {
-myClicksEl.textContent = myClicks.toLocaleString();
-totalClicksEl.textContent = totalClicks.toLocaleString();
-}
-updateDisplay();
-
-unmuteBtn.addEventListener('click', () => {
-goroSound.volume = 0.1;
-goroSound.play().then(() => {
-goroSound.pause();
-unmuteBtn.style.display = 'none';
-}).catch(() => {});
-});
-
-function createGoroBurst() {
-const burst = document.createElement('img');
-burst.src = 'goro_2.png?v=' + Date.now(); // ✅ Forces fresh load
-burst.className = 'goroBurst';
-
-const imgSize = 100;
-const padding = 30;
-const maxX = window.innerWidth - imgSize - padding;
-const maxY = window.innerHeight - imgSize - padding;
-const x = Math.random() * maxX;
-const y = Math.random() * maxY;
-
-burst.style.left = x + 'px';
-burst.style.top = y + 'px';
-document.body.appendChild(burst);
-
-setTimeout(() => {
-if (burst.parentNode) burst.parentNode.removeChild(burst);
-}, 1200);
-}
-
-clickButton.addEventListener('click', (e) => {
-myClicks++;
-totalClicks++;
-localStorage.setItem('goroMyClicks', myClicks.toString());
-localStorage.setItem('goroTotalClicks', totalClicks.toString());
-updateDisplay();
-
-createGoroBurst();
-
-if (goroSound.duration > 0) {
-const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
-goroSound.volume = volume;
-goroSound.currentTime = 0;
-goroSound.play().catch(() => {});
-}
-});
-
-window.addEventListener('beforeunload', () => {
-localStorage.setItem('goroMyClicks', myClicks.toString());
-localStorage.setItem('goroTotalClicks', totalClicks.toString());
-});
-</script>
+    <script>
+        // 🔥 NAN-PROOF: Always valid numbers
+        let myClicks = 0;
+        let totalClicks = 0;
+        
+        // 🔥 SAFE LOAD: Reset corrupted localStorage
+        try {
+            const savedMy = localStorage.getItem('goroMyClicks');
+            const savedTotal = localStorage.getItem('goroTotalClicks');
+            if (savedMy && !isNaN(parseInt(savedMy))) myClicks = parseInt(savedMy);
+            if (savedTotal && !isNaN(parseInt(savedTotal))) totalClicks = parseInt(savedTotal);
+        } catch(e) {
+            // Corrupted storage = reset to 0
+            localStorage.removeItem('goroMyClicks');
+            localStorage.removeItem('goroTotalClicks');
+        }
+        
+        const myClicksEl = document.getElementById('myClicks');
+        const totalClicksEl = document.getElementById('totalClicks');
+        const clickButton = document.getElementById('clickButton');
+        const goroSound = document.getElementById('goroSound');
+        const unmuteBtn = document.getElementById('unmute');
+        
+        function updateDisplay() {
+            // 🔥 IMPOSSIBLE NaN
+            myClicksEl.textContent = Math.floor(myClicks).toLocaleString();
+            totalClicksEl.textContent = Math.floor(totalClicks).toLocaleString();
+        }
+        updateDisplay();
+        
+        let audioUnlocked = false;
+        unmuteBtn.addEventListener('click', () => {
+            goroSound.volume = 0.1;
+            goroSound.play().then(() => {
+                goroSound.pause();
+                unmuteBtn.style.display = 'none';
+                audioUnlocked = true;
+            }).catch(() => {});
+        });
+        
+        function createGoroBurst() {
+            const burst = document.createElement('img');
+            burst.src = 'Goro_2.png';
+            burst.className = 'goroBurst';
+            
+            const imgSize = window.innerWidth < 480 ? 80 : 100;
+            const padding = 30;
+            const maxX = Math.max(0, window.innerWidth - imgSize - padding);
+            const maxY = Math.max(0, window.innerHeight - imgSize - padding);
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            burst.style.left = x + 'px';
+            burst.style.top = y + 'px';
+            document.body.appendChild(burst);
+            
+            setTimeout(() => {
+                if (burst.parentNode) burst.parentNode.removeChild(burst);
+            }, 1200);
+        }
+        
+        clickButton.addEventListener('click', () => {
+            myClicks = (myClicks || 0) + 1;
+            totalClicks = (totalClicks || 0) + 1;
+            
+            localStorage.setItem('goroMyClicks', myClicks.toString());
+            localStorage.setItem('goroTotalClicks', totalClicks.toString());
+            updateDisplay();
+            
+            createGoroBurst();
+            
+            if (audioUnlocked && goroSound.duration > 0) {
+                const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
+                goroSound.volume = volume;
+                goroSound.currentTime = 0;
+                goroSound.play().catch(() => {});
+            }
+        });
+        
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('goroMyClicks', Math.floor(myClicks).toString());
+            localStorage.setItem('goroTotalClicks', Math.floor(totalClicks).toString());
+        });
+    </script>
 </body>
 </html>
