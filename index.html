@@ -92,6 +92,20 @@
             30% { opacity: 1; transform: translateX(30px) scale(1.1); }
             70% { opacity: 0.7; transform: translateX(-20px) scale(1.0); }
             100% { opacity: 0; transform: translateX(60px) scale(0.8); }
+        .repairPowder {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            z-index: 30;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transition: all 0.1s ease;
+            object-fit: contain;
+        }
+        .repairPowder:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 1);
         }
         @media (max-width: 480px) {
             .stats { gap: 1rem; font-size: 1.2rem; }
@@ -195,10 +209,69 @@
                 if (burst.parentNode) burst.parentNode.removeChild(burst);
             }, 1200);
         }
+
+                function startRepairPowder() {
+            if (repairPowderEl) repairPowderEl.remove();
+            
+            repairPowderEl = document.createElement('img');
+            repairPowderEl.src = 'repair_powder.jpg';
+            repairPowderEl.className = 'repairPowder';
+            repairPowderEl.style.display = 'block';
+            document.body.appendChild(repairPowderEl);
+            
+            repairPowderActive = true;
+
+            function movePowder() {
+                if (!repairPowderActive || !repairPowderEl.parentNode) return;
+                
+                const rect = repairPowderEl.getBoundingClientRect();
+                const size = window.innerWidth < 480 ? 60 : 80;
+                const padding = 20;
+                
+                const maxX = window.innerWidth - size - padding;
+                const maxY = window.innerHeight - size - padding;
+                
+                const x = Math.random() * maxX;
+                const y = Math.random() * maxY;
+                
+                repairPowderEl.style.left = x + 'px';
+                repairPowderEl.style.top = y + 'px';
+                
+                repairAnimationId = requestAnimationFrame(movePowder);
+            }
+            movePowder();
+        }
+
+                function stopRepairPowder() {
+            repairPowderActive = false;
+            if (repairAnimationId) {
+                cancelAnimationFrame(repairAnimationId);
+                repairAnimationId = null;
+            }
+            if (repairPowderEl && repairPowderEl.parentNode) {
+                repairPowderEl.parentNode.removeChild(repairPowderEl);
+                repairPowderEl = null;
+            }
+        }
+
+        // Repair powder click handler
+        document.addEventListener('click', (e) => {
+            if (repairPowderEl && repairPowderEl.contains(e.target)) {
+                stopRepairPowder();
+                myClicks += 10; // Bonus clicks!
+                updateDisplay();
+                localStorage.setItem('goroMyClicks', myClicks.toString());
+            }
+        });
         
         clickButton.addEventListener('click', () => {
             myClicks = (myClicks || 0) + 1;
             totalClicks = (totalClicks || 0) + 1;
+
+        // Check for repair powder every 30 clicks
+            if (myClicks % 30 === 0) {
+                startRepairPowder();
+            }
             
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
@@ -215,6 +288,7 @@
         });
         
         window.addEventListener('beforeunload', () => {
+            stopRepairPowder();
             localStorage.setItem('goroMyClicks', Math.floor(myClicks).toString());
             localStorage.setItem('goroTotalClicks', Math.floor(totalClicks).toString());
         });
