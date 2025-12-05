@@ -110,7 +110,7 @@
             <div>My Clicks</div>
         </div>
         <div>
-            <span class="stat-number" id="totalClicks">Loading...</span>
+            <span class="stat-number" id="totalClicks">0</span>
             <div>🌍 Total Clicks</div>
         </div>
     </div>
@@ -124,93 +124,105 @@
     </audio>
 
     <script>
-        // ✅ PERSONAL: My Clicks (localStorage)
-        let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
-        let globalTotalClicks = 0; // ✅ GLOBAL counter
-        
-        const myClicksEl = document.getElementById('myClicks');
-        const totalClicksEl = document.getElementById('totalClicks');
-        const clickButton = document.getElementById('clickButton');
-        const goroSound = document.getElementById('goroSound');
-        const unmuteBtn = document.getElementById('unmute');
-        
-        // ✅ FIXED: Safe update function
-        function updateDisplay() {
-            if (myClicksEl) myClicksEl.textContent = myClicks.toLocaleString();
-            if (totalClicksEl) totalClicksEl.textContent = globalTotalClicks.toLocaleString();
-        }
-        
-        let audioUnlocked = false;
-        unmuteBtn.addEventListener('click', () => {
-            goroSound.volume = 0.1;
-            goroSound.play().then(() => {
-                goroSound.pause();
-                unmuteBtn.style.display = 'none';
-                audioUnlocked = true;
-            }).catch(() => {});
-            updateDisplay();
-        });
-        
-        function createGoroBurst() {
-            const burst = document.createElement('img');
-            burst.src = 'Goro_2.png';
-            burst.className = 'goroBurst';
+        // ✅ WAIT FOR DOM READY - NO MORE [object] ERRORS
+        document.addEventListener('DOMContentLoaded', function() {
             
-            const imgSize = window.innerWidth < 480 ? 80 : 100;
-            const padding = 30;
-            const maxX = window.innerWidth - imgSize - padding;
-            const maxY = window.innerHeight - imgSize - padding;
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
+            // Personal clicks (localStorage)
+            let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
+            let globalTotalClicks = 0;
             
-            burst.style.left = x + 'px';
-            burst.style.top = y + 'px';
-            document.body.appendChild(burst);
+            // ✅ SAFE ELEMENT GRABS
+            const myClicksEl = document.getElementById('myClicks');
+            const totalClicksEl = document.getElementById('totalClicks');
+            const clickButton = document.getElementById('clickButton');
+            const goroSound = document.getElementById('goroSound');
+            const unmuteBtn = document.getElementById('unmute');
             
-            setTimeout(() => {
-                if (burst.parentNode) burst.parentNode.removeChild(burst);
-            }, 1200);
-        }
-        
-        // ✅ FIXED: Safe global load
-        async function loadGlobalTotal() {
-            try {
-                // 🔧 REPLACE YOUR_USERNAME/YOUR_REPO HERE
-                const response = await fetch('https://raw.githubusercontent.com/benjamincooper10/WHAABAP/main/totalClicks.txt');
-                if (!response.ok) throw new Error('File not found');
-                const text = await response.text();
-                globalTotalClicks = parseInt(text.trim()) || 0;
-            } catch(e) {
-                console.log('Global counter file not found, starting at 0');
-                globalTotalClicks = 0;
+            function updateDisplay() {
+                if (myClicksEl) myClicksEl.textContent = myClicks.toLocaleString();
+                if (totalClicksEl) totalClicksEl.textContent = globalTotalClicks.toLocaleString();
             }
-            totalClicksEl.textContent = globalTotalClicks.toLocaleString();
-        }
-        
-        // ✅ INSTANT feedback
-        function incrementGlobal() {
-            globalTotalClicks++;
-            updateDisplay();
-        }
-        
-        clickButton.addEventListener('click', () => {
-            myClicks++;
-            localStorage.setItem('goroMyClicks', myClicks.toString());
             
-            incrementGlobal(); // ✅ Global +1
-            createGoroBurst();
+            updateDisplay(); // Initial display
             
-            if (audioUnlocked && goroSound.duration > 0) {
-                const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
-                goroSound.volume = volume;
-                goroSound.currentTime = 0;
-                goroSound.play().catch(() => {});
+            let audioUnlocked = false;
+            if (unmuteBtn) {
+                unmuteBtn.addEventListener('click', () => {
+                    goroSound.volume = 0.1;
+                    goroSound.play().then(() => {
+                        goroSound.pause();
+                        unmuteBtn.style.display = 'none';
+                        audioUnlocked = true;
+                    }).catch(() => {});
+                });
             }
+            
+            function createGoroBurst() {
+                const burst = document.createElement('img');
+                burst.src = 'Goro_2.png';
+                burst.className = 'goroBurst';
+                
+                const imgSize = window.innerWidth < 480 ? 80 : 100;
+                const padding = 30;
+                const maxX = window.innerWidth - imgSize - padding;
+                const maxY = window.innerHeight - imgSize - padding;
+                const x = Math.random() * Math.max(0, maxX);
+                const y = Math.random() * Math.max(0, maxY);
+                
+                burst.style.left = x + 'px';
+                burst.style.top = y + 'px';
+                document.body.appendChild(burst);
+                
+                setTimeout(() => {
+                    if (burst.parentNode) {
+                        burst.parentNode.removeChild(burst);
+                    }
+                }, 1200);
+            }
+            
+            // Global counter (starts at 0, optimistic +1)
+            function incrementGlobal() {
+                globalTotalClicks++;
+                if (totalClicksEl) {
+                    totalClicksEl.textContent = globalTotalClicks.toLocaleString();
+                }
+            }
+            
+            if (clickButton) {
+                clickButton.addEventListener('click', () => {
+                    myClicks++;
+                    localStorage.setItem('goroMyClicks', myClicks.toString());
+                    
+                    incrementGlobal();
+                    createGoroBurst();
+                    
+                    if (audioUnlocked && goroSound && goroSound.duration > 0) {
+                        const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
+                        goroSound.volume = volume;
+                        goroSound.currentTime = 0;
+                        goroSound.play().catch(() => {});
+                    }
+                });
+            }
+            
+            // Try to load real global counter from file
+            setTimeout(async () => {
+                try {
+                    // 🔧 REPLACE THIS LINE WITH YOUR REPO
+                    const response = await fetch('https://raw.githubusercontent.com/benjamincooper10/WHAABAP/main/totalClicks.txt');
+                    if (response.ok) {
+                        const text = await response.text();
+                        const serverTotal = parseInt(text.trim()) || 0;
+                        globalTotalClicks = serverTotal;
+                        if (totalClicksEl) {
+                            totalClicksEl.textContent = globalTotalClicks.toLocaleString();
+                        }
+                    }
+                } catch(e) {
+                    console.log('No global counter file yet');
+                }
+            }, 100);
         });
-        
-        // ✅ Load on start
-        loadGlobalTotal();
-        updateDisplay();
     </script>
 </body>
 </html>
