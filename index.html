@@ -84,12 +84,12 @@
         constructor(x, y) {
             this.x = x;
             this.y = y;
-            this.vx = (Math.random() - 0.5) * 25; // Faster burst
+            this.vx = (Math.random() - 0.5) * 25;
             this.vy = (Math.random() - 0.5) * 25;
             this.vx2 = (Math.random() - 0.5) * 10;
             this.vy2 = (Math.random() - 0.5) * 10;
             this.size = Math.random() * 8 + 3;
-            this.color = `hsl(${Math.random()*360}, 80%, ${50 + clickCount*5}%)`; // Brighter with clicks
+            this.color = `hsl(${Math.random()*360}, 80%, ${50 + clickCount*5}%)`;
             this.life = 1;
             this.decay = Math.random() * 0.015 + 0.008;
         }
@@ -116,7 +116,6 @@
         }
     }
 button.addEventListener('click', function(e) {
-    // ... (keep existing click logic until audio.play())
     console.log('Volume:', audio.volume, 'Duration:', audio.duration);
     if (audio.duration > 0) {
         audio.currentTime = 0;
@@ -130,7 +129,6 @@ button.addEventListener('click', function(e) {
         console.error(':x: Audio file not loaded');
         alert('Sound file not found. Check filename & upload.');
     }
-    // ... (rest unchanged)
 });
 </script>
 </body>
