@@ -129,7 +129,7 @@
     </div>
     
     <button id="clickButton">
-        <img src="Goro_2.png" alt="Goro" id="goroImg">
+        <img src="Goro_2.png" alt="Goro" id="goroImg"> <!-- NEW MAIN BUTTON -->
     </button>
     
     <audio id="goroSound" preload="auto">
@@ -161,27 +161,27 @@
             }).catch(() => {});
         });
         
-        function createGoroBurst() {
-            const burst = document.createElement('img');
-            burst.src = 'Goro_2.png';
-            burst.className = 'goroBurst';
-            burst.onerror = () => console.log('❌ Goro_2.png NOT FOUND');
-            
-            const imgSize = 100;
-            const padding = 30;
-            const maxX = window.innerWidth - imgSize - padding;
-            const maxY = window.innerHeight - imgSize - padding;
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
-            
-            burst.style.left = x + 'px';
-            burst.style.top = y + 'px';
-            document.body.appendChild(burst);
-            
-            setTimeout(() => {
-                if (burst.parentNode) burst.parentNode.removeChild(burst);
-            }, 1200);
-        }
+function createGoroBurst() {
+    const burst = document.createElement('img');
+    burst.src = 'goro.jpg'; // ✅ Original Goro as bursts now
+    burst.className = 'goroBurst';
+    burst.onerror = () => console.log('❌ goro.jpg NOT FOUND');
+    
+    const imgSize = 100;
+    const padding = 30;
+    const maxX = window.innerWidth - imgSize - padding;
+    const maxY = window.innerHeight - imgSize - padding;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+    
+    burst.style.left = x + 'px';
+    burst.style.top = y + 'px';
+    document.body.appendChild(burst);
+    
+    setTimeout(() => {
+        if (burst.parentNode) burst.parentNode.removeChild(burst);
+    }, 1200);
+}
         
         clickButton.addEventListener('click', (e) => {
             myClicks++;
