@@ -61,9 +61,12 @@
     <button id="audioButton" title="Click me!">
         <img src="goro.jpg" alt="Clickable screenshot">
     </button>
-    <audio id="mySound" preload="auto">
-        <source src="goro_attack1.wav" type="audio/wav">
-    </audio>
+<audio id="mySound" preload="auto">
+    <source src="sound.wav" type="audio/wav">
+    <source src="sound.mp3" type="audio/mpeg"> <!-- Add MP3 fallback -->
+    <source src="sound.ogg" type="audio/ogg">
+    Your browser doesn't support audio.
+</audio>
    <script>
     const button = document.getElementById('audioButton');
     const canvas = document.getElementById('particleCanvas');
@@ -115,44 +118,23 @@
             ctx.restore();
         }
     }
-    button.addEventListener('click', function(e) {
-        const rect = img.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        // Ramp volume + particles
-        clickCount++;
-        maxVolume = Math.min(0.1 + (clickCount * 0.08), 1.0); // 10% louder per click
-        audio.volume = maxVolume;
-        // More particles as it gets louder
-        const particleCount = 40 + Math.floor(clickCount * 3);
-        for(let i = 0; i < particleCount; i++) {
-            particles.push(new Particle(x, y));
-        }
-        // Flash image
-        img.style.transform = 'scale(1.1)';
-        img.style.opacity = '0.7';
-        setTimeout(() => {
-            img.style.transform = 'scale(1)';
-            img.style.opacity = '1';
-        }, 150);
+button.addEventListener('click', function(e) {
+    // ... (keep existing click logic until audio.play())
+    console.log('Volume:', audio.volume, 'Duration:', audio.duration);
+    if (audio.duration > 0) {
         audio.currentTime = 0;
-        audio.play().catch(e => console.log('Audio error:', e));
-        animate();
-    });
-    // Reset volume when sound ends
-    audio.addEventListener('ended', function() {
-        clickCount = 0;
-        maxVolume = 0.1;
-    });
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles = particles.filter(p => {
-            p.update();
-            p.draw();
-            return p.life > 0;
+        audio.play().then(() => {
+            console.log(':white_check_mark: Audio playing!');
+        }).catch(e => {
+            console.error(':x: Audio failed:', e);
+            alert('Audio blocked by browser. Click allowed only.');
         });
-        if(particles.length > 0) requestAnimationFrame(animate);
+    } else {
+        console.error(':x: Audio file not loaded');
+        alert('Sound file not found. Check filename & upload.');
     }
+    // ... (rest unchanged)
+});
 </script>
 </body>
 </html>
