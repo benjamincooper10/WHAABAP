@@ -199,7 +199,7 @@
 
     <script>
         // ✅ DARK CLOUD WEAPON SYSTEM
-        let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth') || '30');
+        let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth') || '50');
         let weaponBroken = false;
         
         let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
@@ -329,10 +329,10 @@
             
             // Weapon BREAKS at 50 clicks (-20 health)
             if (weaponHealth <= -20) {
-                weaponBroken = true;
-                clickButton.classList.add('broken');
-                document.getElementById('weaponWarning').innerHTML = 
-                    '💥 WEAPON BROKEN! <br> <span style="font-size: 28px;">Refresh to repair</span>';
+              // Weapon visually broken but clicks still work
+              clickButton.classList.add('broken');
+              document.getElementById('weaponWarning').innerHTML = 'WEAPON BROKEN!<br><span 
+            style="font-size: 28px">Keep attacking!</span>';
             }
         });
         
