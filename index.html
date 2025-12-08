@@ -1,366 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goro Attacks</title>
-    <link rel="icon" type="image/jpeg" href="goro3.jpg">
-    <link rel="apple-touch-icon" href="goro3.jpg">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow: hidden;
-            user-select: none;
-            touch-action: manipulation;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            position: relative;
-        }
-        #clickButton {
-            width: 280px !important;
-            height: 280px !important;
-            border-radius: 20px;
-            border: 4px solid #fff;
-            background: transparent;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: all 0.08s ease;
-        }
-        #clickButton:hover {
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-        }
-        #clickButton:active {
-            transform: translateY(3px) scale(0.97) !important;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
-        }
-        #goroImg {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: contain;
-            display: block;
-            pointer-events: none;
-            border-radius: 16px;
-        }
-        .stats {
-            display: flex;
-            gap: 3rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 3rem;
-            display: block;
-            font-weight: 900;
-        }
-        .label {
-            color: #00ff88;
-            text-shadow: 0 0 20px #00ff88;
-        }
-        #unmute {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 24px;
-            background: #333;
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            z-index: 100;
-        }
-        .goroBurst {
-            position: fixed !important;
-            width: 100px !important;
-            height: 100px !important;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
-            animation: sideFade 1.2s ease-out forwards;
-            object-fit: contain;
-            background: none !important;
-            border: none !important;
-        }
-                /* UPDATED: Repair Powder - BOUNCES around window bounds */
-        .repairPowder {
-            position: fixed !important;
-            width: 80px !important;
-            height: 80px !important;
-            pointer-events: all;
-            z-index: 200;
-            cursor: pointer;
-            filter: drop-shadow(0 0 20px #ffeb3b);
-            border-radius: 12px;
-            object-fit: contain;
-            transition: transform 0.1s ease;
-        }
-        .repairPowder:hover {
-            transform: scale(1.15);
-            filter: drop-shadow(0 0 30px #ffeb3b);
-        @keyframes sideFade {
-            0% { opacity: 0.9; transform: translateX(0px) scale(0.8); }
-            30% { opacity: 1; transform: translateX(30px) scale(1.1); }
-            70% { opacity: 0.7; transform: translateX(-20px) scale(1.0); }
-            100% { opacity: 0; transform: translateX(60px) scale(0.8); }
-        }
-        @media (max-width: 480px) {
-            .stats { gap: 1rem; font-size: 1.2rem; }
-            .stat-number { font-size: 2rem; }
-            #clickButton { width: 220px !important; height: 220px !important; }
-            .goroBurst { width: 80px !important; height: 80px !important; }
-        }
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            color: #aaa;
-            text-align: center;
-            z-index: 10;
-            pointer-events: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goro Attacks</title>
+<link rel="icon" type="image/jpeg" href="goro3.jpg">
+<link rel="apple-touch-icon" href="goro3.jpg">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+background: #000;
+color: #fff;
+overflow: hidden;
+user-select: none;
+touch-action: manipulation;
+height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 2rem;
+position: relative;
+}
+#clickButton {
+width: 280px !important;
+height: 280px !important;
+border-radius: 20px;
+border: 4px solid #fff;
+background: transparent;
+cursor: pointer;
+position: relative;
+overflow: hidden;
+box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+transition: all 0.08s ease;
+}
+#clickButton:hover {
+box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+#clickButton:active {
+transform: translateY(3px) scale(0.97) !important;
+box-shadow: 0 5px 10px rgba(0,0,0,0.6);
+}
+#goroImg {
+width: 100% !important;
+height: 100% !important;
+object-fit: contain;
+display: block;
+pointer-events: none;
+border-radius: 16px;
+}
+.stats {
+display: flex;
+gap: 3rem;
+font-size: 1.5rem;
+font-weight: 600;
+text-align: center;
+}
+.stat-number {
+font-size: 3rem;
+display: block;
+font-weight: 900;
+}
+.label {
+color: #00ff88;
+text-shadow: 0 0 20px #00ff88;
+}
+#unmute {
+position: fixed;
+top: 20px;
+right: 20px;
+padding: 12px 24px;
+background: #333;
+color: #fff;
+border: none;
+border-radius: 25px;
+font-weight: 600;
+cursor: pointer;
+z-index: 100;
+}
+.goroBurst {
+position: fixed !important;
+width: 100px !important;
+height: 100px !important;
+pointer-events: none;
+z-index: 50;
+opacity: 0;
+filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
+animation: sideFade 1.2s ease-out forwards;
+object-fit: contain;
+background: none !important;
+border: none !important;
+}
+@keyframes sideFade {
+0% { opacity: 0.9; transform: translateX(0px) scale(0.8); }
+30% { opacity: 1; transform: translateX(30px) scale(1.1); }
+70% { opacity: 0.7; transform: translateX(-20px) scale(1.0); }
+100% { opacity: 0; transform: translateX(60px) scale(0.8); }
+}
+@media (max-width: 480px) {
+.stats { gap: 1rem; font-size: 1.2rem; }
+.stat-number { font-size: 2rem; }
+#clickButton { width: 220px !important; height: 220px !important; }
+.goroBurst { width: 80px !important; height: 80px !important; }
+}
+.footer {
+position: fixed;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 0.9rem;
+color: #aaa;
+text-align: center;
+z-index: 10;
+pointer-events: none;
+}
+</style>
 </head>
 <body>
-    <button id="unmute">Unmute</button>
-    
-    <div class="stats">
-        <div>
-            <span class="stat-number" id="myClicks">0</span>
-            <div class="label">My Clicks</div>
-        </div>
-        <div>
-            <span class="stat-number" id="totalClicks">0</span>
-            <div class="label">Total Clicks</div>
-        </div>
-    </div>
+<button id="unmute">Unmute</button>
 
-    <button id="clickButton">
-        <img src="Goro_2.png" alt="Goro" id="goroImg">
-    </button>
+<div class="stats">
+<div>
+<span class="stat-number" id="myClicks">0</span>
+<div class="label">My Clicks</div>
+</div>
+<div>
+<span class="stat-number" id="totalClicks">0</span>
+<div class="label">Total Clicks</div>
+</div>
+</div>
 
-    <audio id="goroSound" preload="auto">
-        <source src="goro_attack1.mp3" type="audio/mpeg">
-    </audio>
+<button id="clickButton">
+<img src="Goro_2.png" alt="Goro" id="goroImg">
+</button>
 
-    <div class="footer">Made by an idiot Product Owner..and some AI.</div>
+<audio id="goroSound" preload="auto">
+<source src="goro_attack1.mp3" type="audio/mpeg">
+</audio>
 
-    <script>
-        // NAN-PROOF: Always valid numbers
-        let myClicks = 0;
-        let totalClicks = 0;
-        let repairPowderActive = false;
-        let repairPowderEl = null;
-        let repairPowderX = 0;
-        let repairPowderY = 0;
-        let repairPowderVX = 0;
-        let repairPowderVY = 0;
-        const powderSpeed = 5; // Medium speed
-        const bounceDamping = 0.9; // Slight energy loss on bounce
+<div class="footer">Made by an idiot Product Owner..and some AI.</div>
 
-        // SAFE LOAD: Reset corrupted localStorage
-        try {
-            const savedMy = localStorage.getItem('goroMyClicks');
-            const savedTotal = localStorage.getItem('goroTotalClicks');
-            if (savedMy && !isNaN(parseInt(savedMy))) myClicks = parseInt(savedMy);
-            if (savedTotal && !isNaN(parseInt(savedTotal))) totalClicks = parseInt(savedTotal);
-        } catch (e) {
-            // Corrupted storage, reset to 0
-            localStorage.removeItem('goroMyClicks');
-            localStorage.removeItem('goroTotalClicks');
-        }
+<script>
+// NAN-PROOF: Always valid numbers
+let myClicks = 0;
+let totalClicks = 0;
 
-        const myClicksEl = document.getElementById('myClicks');
-        const totalClicksEl = document.getElementById('totalClicks');
-        const clickButton = document.getElementById('clickButton');
-        const goroSound = document.getElementById('goroSound');
-        const unmuteBtn = document.getElementById('unmute');
+// SAFE LOAD: Reset corrupted localStorage
+try {
+const savedMy = localStorage.getItem('goroMyClicks');
+const savedTotal = localStorage.getItem('goroTotalClicks');
+if (savedMy && !isNaN(parseInt(savedMy))) myClicks = parseInt(savedMy);
+if (savedTotal && !isNaN(parseInt(savedTotal))) totalClicks = parseInt(savedTotal);
+} catch (e) {
+// Corrupted storage, reset to 0
+localStorage.removeItem('goroMyClicks');
+localStorage.removeItem('goroTotalClicks');
+}
 
-        function updateDisplay() {
-            // IMPOSSIBLE NaN
-            myClicksEl.textContent = Math.floor(myClicks).toLocaleString();
-            totalClicksEl.textContent = Math.floor(totalClicks).toLocaleString();
-        }
-        updateDisplay();
+const myClicksEl = document.getElementById('myClicks');
+const totalClicksEl = document.getElementById('totalClicks');
+const clickButton = document.getElementById('clickButton');
+const goroSound = document.getElementById('goroSound');
+const unmuteBtn = document.getElementById('unmute');
 
-        let audioUnlocked = false;
-        unmuteBtn.addEventListener('click', () => {
-            goroSound.volume = 0.1;
-            goroSound.play().then(() => {
-                goroSound.pause();
-                unmuteBtn.style.display = 'none';
-                audioUnlocked = true;
-            }).catch(() => {});
-        });
+function updateDisplay() {
+// IMPOSSIBLE NaN
+myClicksEl.textContent = Math.floor(myClicks).toLocaleString();
+totalClicksEl.textContent = Math.floor(totalClicks).toLocaleString();
+}
+updateDisplay();
 
-                /* BOUNCING Repair Powder */
-        function startRepairPowder() {
-            if (repairPowderActive) return;
-            repairPowderActive = true;
-            
-            repairPowderEl = document.createElement('img');
-            repairPowderEl.src = 'Repair_Powder1.png';
-            repairPowderEl.className = 'repairPowder';
-            
-            // Random start position (not on edges)
-            const size = window.innerWidth < 480 ? 60 : 80;
-            repairPowderX = size + Math.random() * (window.innerWidth - size * 2);
-            repairPowderY = size + Math.random() * (window.innerHeight - size * 2);
-            
-            // Random initial velocity (medium speed)
-            repairPowderVX = (Math.random() - 0.5) * powderSpeed * 5;
-            repairPowderVY = (Math.random() - 0.5) * powderSpeed * 5;
-            
-            repairPowderEl.style.left = repairPowderX + 'px';
-            repairPowderEl.style.top = repairPowderY + 'px';
-            document.body.appendChild(repairPowderEl);
-            
-            repairPowderEl.addEventListener('click', collectRepairPowder);
-            animateRepairPowder();
-        }
+let audioUnlocked = false;
+unmuteBtn.addEventListener('click', () => {
+goroSound.volume = 0.1;
+goroSound.play().then(() => {
+goroSound.pause();
+unmuteBtn.style.display = 'none';
+audioUnlocked = true;
+}).catch(() => {});
+});
 
-        function animateRepairPowder() {
-            if (!repairPowderActive || !repairPowderEl) return;
-            
-            const size = window.innerWidth < 480 ? 60 : 80;
-            
-            // Update position
-            repairPowderX += repairPowderVX;
-            repairPowderY += repairPowderVY;
-            
-            // Bounce off walls
-            if (repairPowderX <= 0 || repairPowderX >= window.innerWidth - size) {
-                repairPowderVX *= -1 * bounceDamping;
-                repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
-            }
-            if (repairPowderY <= 0 || repairPowderY >= window.innerHeight - size) {
-                repairPowderVY *= -1 * bounceDamping;
-                repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
-            }
-            
-            // Keep in bounds
-            repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
-            repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
-            
-            repairPowderEl.style.left = repairPowderX + 'px';
-            repairPowderEl.style.top = repairPowderY + 'px';
-            
-            requestAnimationFrame(animateRepairPowder);
-        }
+function createGoroBurst() {
+const burst = document.createElement('img');
+burst.src = 'Goro_2.png';
+burst.className = 'goroBurst';
+const imgSize = window.innerWidth < 480 ? 80 : 100;
+const padding = 30;
+const maxX = Math.max(0, window.innerWidth - imgSize - padding);
+const maxY = Math.max(0, window.innerHeight - imgSize - padding);
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+burst.style.left = x + 'px';
+burst.style.top = y + 'px';
+document.body.appendChild(burst);
+setTimeout(() => {
+if (burst.parentNode) burst.parentNode.removeChild(burst);
+}, 1200);
+}
 
-        function collectRepairPowder() {
-            if (!repairPowderEl) return;
-                        const size = window.innerWidth < 480 ? 60 : 80;
-            
-            // Update position
-            repairPowderX += repairPowderVX;
-            repairPowderY += repairPowderVY;
-            
-            // Bounce off walls
-            if (repairPowderX <= 0 || repairPowderX >= window.innerWidth - size) {
-                repairPowderVX *= -1 * bounceDamping;
-                repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
-            }
-            if (repairPowderY <= 0 || repairPowderY >= window.innerHeight - size) {
-                repairPowderVY *= -1 * bounceDamping;
-                repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
-            }
-            
-            // Keep in bounds
-            repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
-            repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
-            
-            repairPowderEl.style.left = repairPowderX + 'px';
-            repairPowderEl.style.top = repairPowderY + 'px';
-            
-            requestAnimationFrame(animateRepairPowder);
-        }
+clickButton.addEventListener('click', () => {
+myClicks = myClicks + 1;
+totalClicks = totalClicks + 1;
+localStorage.setItem('goroMyClicks', myClicks.toString());
+localStorage.setItem('goroTotalClicks', totalClicks.toString());
+updateDisplay();
+createGoroBurst();
+if (audioUnlocked) {
+goroSound.duration > 0;
+const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
+goroSound.volume = volume;
+goroSound.currentTime = 0;
+goroSound.play().catch(() => {});
+}
+});
 
-        function collectRepairPowder() {
-            if (!repairPowderEl) return;
-            
-            // +10 bonus clicks!
-            myClicks += 10;
-            totalClicks += 10;
-            updateDisplay();
-            localStorage.setItem('goroMyClicks', myClicks.toString());
-            localStorage.setItem('goroTotalClicks', totalClicks.toString());
-            
-            // Remove powder
-            repairPowderEl.remove();
-            repairPowderEl = null;
-            repairPowderActive = false;
-        }
-
-        function stopRepairPowder() {
-            if (repairPowderEl) {
-                repairPowderEl.remove();
-                repairPowderEl = null;
-            }
-            repairPowderActive = false;
-        }
-
-        function createGoroBurst() {
-            const burst = document.createElement('img');
-            burst.src = 'Goro_2.png';
-            burst.className = 'goroBurst';
-            const imgSize = window.innerWidth < 480 ? 80 : 100;
-            const padding = 30;
-            const maxX = Math.max(0, window.innerWidth - imgSize - padding);
-            const maxY = Math.max(0, window.innerHeight - imgSize - padding);
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
-            burst.style.left = x + 'px';
-            burst.style.top = y + 'px';
-            document.body.appendChild(burst);
-            setTimeout(() => {
-                if (burst.parentNode) burst.parentNode.removeChild(burst);
-            }, 1200);
-        }
-
-        clickButton.addEventListener('click', () => {
-            myClicks = myClicks + 1;
-            totalClicks = totalClicks + 1;
-
-                        // Spawn powder every 30 clicks
-            if (myClicks % 30 === 0) {
-                startRepairPowder();
-            }
-            
-            localStorage.setItem('goroMyClicks', myClicks.toString());
-            localStorage.setItem('goroTotalClicks', totalClicks.toString());
-            updateDisplay();
-            createGoroBurst();
-            if (audioUnlocked) {
-            if (goroSound.duration > 0) {  // ← Added "if"
-            const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
-            goroSound.volume = volume;
-            goroSound.currentTime = 0;
-            goroSound.play().catch(() => {});
-            }
-        }
-        });
-
-        window.addEventListener('beforeunload', () => {
-            localStorage.setItem('goroMyClicks', Math.floor(myClicks).toString());
-            localStorage.setItem('goroTotalClicks', Math.floor(totalClicks).toString());
-        });
-    </script>
+window.addEventListener('beforeunload', () => {
+localStorage.setItem('goroMyClicks', Math.floor(myClicks).toString());
+localStorage.setItem('goroTotalClicks', Math.floor(totalClicks).toString());
+});
+</script>
 </body>
 </html>
