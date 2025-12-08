@@ -96,6 +96,22 @@
             background: none !important;
             border: none !important;
         }
+                /* UPDATED: Repair Powder - BOUNCES around window bounds */
+        .repairPowder {
+            position: fixed !important;
+            width: 80px !important;
+            height: 80px !important;
+            pointer-events: all;
+            z-index: 200;
+            cursor: pointer;
+            filter: drop-shadow(0 0 20px #ffeb3b);
+            border-radius: 12px;
+            object-fit: contain;
+            transition: transform 0.1s ease;
+        }
+        .repairPowder:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 30px #ffeb3b);
         @keyframes sideFade {
             0% { opacity: 0.9; transform: translateX(0px) scale(0.8); }
             30% { opacity: 1; transform: translateX(30px) scale(1.1); }
@@ -149,6 +165,14 @@
         // NAN-PROOF: Always valid numbers
         let myClicks = 0;
         let totalClicks = 0;
+        let repairPowderActive = false;
+        let repairPowderEl = null;
+        let repairPowderX = 0;
+        let repairPowderY = 0;
+        let repairPowderVX = 0;
+        let repairPowderVY = 0;
+        const powderSpeed = 2; // Medium speed
+        const bounceDamping = 0.9; // Slight energy loss on bounce
 
         // SAFE LOAD: Reset corrupted localStorage
         try {
@@ -185,6 +209,113 @@
             }).catch(() => {});
         });
 
+                /* BOUNCING Repair Powder */
+        function startRepairPowder() {
+            if (repairPowderActive) return;
+            repairPowderActive = true;
+            
+            repairPowderEl = document.createElement('img');
+            repairPowderEl.src = 'Repair_Powder1.png';
+            repairPowderEl.className = 'repairPowder';
+            
+            // Random start position (not on edges)
+            const size = window.innerWidth < 480 ? 60 : 80;
+            repairPowderX = size + Math.random() * (window.innerWidth - size * 2);
+            repairPowderY = size + Math.random() * (window.innerHeight - size * 2);
+            
+            // Random initial velocity (medium speed)
+            repairPowderVX = (Math.random() - 0.5) * powderSpeed * 2;
+            repairPowderVY = (Math.random() - 0.5) * powderSpeed * 2;
+            
+            repairPowderEl.style.left = repairPowderX + 'px';
+            repairPowderEl.style.top = repairPowderY + 'px';
+            document.body.appendChild(repairPowderEl);
+            
+            repairPowderEl.addEventListener('click', collectRepairPowder);
+            animateRepairPowder();
+        }
+
+        function animateRepairPowder() {
+            if (!repairPowderActive || !repairPowderEl) return;
+            
+            const size = window.innerWidth < 480 ? 60 : 80;
+            
+            // Update position
+            repairPowderX += repairPowderVX;
+            repairPowderY += repairPowderVY;
+            
+            // Bounce off walls
+            if (repairPowderX <= 0 || repairPowderX >= window.innerWidth - size) {
+                repairPowderVX *= -1 * bounceDamping;
+                repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
+            }
+            if (repairPowderY <= 0 || repairPowderY >= window.innerHeight - size) {
+                repairPowderVY *= -1 * bounceDamping;
+                repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
+            }
+            
+            // Keep in bounds
+            repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
+            repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
+            
+            repairPowderEl.style.left = repairPowderX + 'px';
+            repairPowderEl.style.top = repairPowderY + 'px';
+            
+            requestAnimationFrame(animateRepairPowder);
+        }
+
+        function collectRepairPowder() {
+            if (!repairPowderEl) return;
+                        const size = window.innerWidth < 480 ? 60 : 80;
+            
+            // Update position
+            repairPowderX += repairPowderVX;
+            repairPowderY += repairPowderVY;
+            
+            // Bounce off walls
+            if (repairPowderX <= 0 || repairPowderX >= window.innerWidth - size) {
+                repairPowderVX *= -1 * bounceDamping;
+                repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
+            }
+            if (repairPowderY <= 0 || repairPowderY >= window.innerHeight - size) {
+                repairPowderVY *= -1 * bounceDamping;
+                repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
+            }
+            
+            // Keep in bounds
+            repairPowderX = Math.max(0, Math.min(window.innerWidth - size, repairPowderX));
+            repairPowderY = Math.max(0, Math.min(window.innerHeight - size, repairPowderY));
+            
+            repairPowderEl.style.left = repairPowderX + 'px';
+            repairPowderEl.style.top = repairPowderY + 'px';
+            
+            requestAnimationFrame(animateRepairPowder);
+        }
+
+        function collectRepairPowder() {
+            if (!repairPowderEl) return;
+            
+            // +10 bonus clicks!
+            myClicks += 10;
+            totalClicks += 10;
+            updateDisplay();
+            localStorage.setItem('goroMyClicks', myClicks.toString());
+            localStorage.setItem('goroTotalClicks', totalClicks.toString());
+            
+            // Remove powder
+            repairPowderEl.remove();
+            repairPowderEl = null;
+            repairPowderActive = false;
+        }
+
+        function stopRepairPowder() {
+            if (repairPowderEl) {
+                repairPowderEl.remove();
+                repairPowderEl = null;
+            }
+            repairPowderActive = false;
+        }
+
         function createGoroBurst() {
             const burst = document.createElement('img');
             burst.src = 'Goro_2.png';
@@ -206,6 +337,12 @@
         clickButton.addEventListener('click', () => {
             myClicks = myClicks + 1;
             totalClicks = totalClicks + 1;
+
+                        // Spawn powder every 30 clicks
+            if (myClicks % 30 === 0) {
+                startRepairPowder();
+            }
+            
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
             updateDisplay();
