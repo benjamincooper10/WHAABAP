@@ -7,7 +7,12 @@
     <link rel="icon" type="image/jpeg" href="goro3.jpg">
     <link rel="apple-touch-icon" href="goro3.jpg">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #000;
@@ -23,8 +28,9 @@
             gap: 1rem;
             position: relative;
         }
-        #clickButton {
-            width: 280px !important; 
+        
+        .clickButton {
+            width: 280px !important;
             height: 280px !important;
             border-radius: 20px;
             border: 4px solid #fff;
@@ -35,16 +41,22 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: all 0.1s ease;
         }
-        #clickButton:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
-        #clickButton:active:not(.broken) {
+        
+        .clickButton:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+        
+        .clickButton:active:not(.broken) {
             transform: translateY(3px) scale(0.97) !important;
             box-shadow: 0 5px 10px rgba(0,0,0,0.6);
         }
-        #clickButton.broken {
+        
+        .clickButton.broken {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        #goroImg {
+        
+        .goroImg {
             width: 100% !important;
             height: 100% !important;
             object-fit: contain;
@@ -52,6 +64,7 @@
             pointer-events: none;
             border-radius: 16px;
         }
+        
         .stats {
             display: flex;
             gap: 3rem;
@@ -59,6 +72,7 @@
             font-weight: 600;
             text-align: center;
         }
+        
         .stat-number {
             font-size: 3rem;
             display: block;
@@ -66,9 +80,11 @@
             color: #00ff88;
             text-shadow: 0 0 20px #00ff88;
         }
+        
         #unmute {
             position: fixed;
-            top: 20px; right: 20px;
+            top: 20px;
+            right: 20px;
             padding: 12px 24px;
             background: #333;
             color: #fff;
@@ -78,49 +94,58 @@
             cursor: pointer;
             z-index: 100;
         }
+        
         /* Weapon Health Bar */
         #weaponBar {
-            width: 200px; height: 20px; 
-            background: #333; 
-            border-radius: 10px; 
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
             margin: 10px 0;
             display: none;
         }
+        
         #healthFill {
-            height: 100%; 
+            height: 100%;
             background: linear-gradient(90deg, #00ff88, #ff4444);
-            border-radius: 10px; 
-            width: 100%; 
+            border-radius: 10px;
+            width: 100%;
             transition: width 0.3s ease;
         }
+        
         /* Weapon Warning */
         #weaponWarning {
-            position: fixed; top: 50%; left: 50%; 
+            position: fixed;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255,100,0,0.95); 
-            color: #fff; 
+            background: rgba(255, 100, 0, 0.95);
+            color: #fff;
             padding: 30px 50px;
-            border-radius: 20px; 
-            font-size: 24px; 
+            border-radius: 20px;
+            font-size: 24px;
             font-weight: bold;
-            text-align: center; 
+            text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            display: none; 
-            z-index: 200; 
+            display: none;
+            z-index: 200;
             border: 4px solid #ff6600;
         }
+        
         /* Bouncing Repair Powder */
         #repairPowder {
-            position: fixed; 
-            width: 60px; height: 60px; 
-            background-image: url('repair_powder.jpg'); 
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background-image: url('Repair_Powder1.png');
             background-size: cover;
-            border-radius: 50%; 
-            pointer-events: none; 
+            border-radius: 50%;
+            pointer-events: none;
             z-index: 150;
-            display: none; 
+            display: none;
             box-shadow: 0 5px 15px rgba(255,255,255,0.5);
         }
+        
         /* SIDE-TO-SIDE ONLY - NO SPIN */
         .goroBurst {
             position: fixed !important;
@@ -135,34 +160,35 @@
             background: none !important;
             border: none !important;
         }
+        
         @keyframes sideFade {
-            0% { 
-                opacity: 0.9; 
-                transform: translateX(0px) scale(0.8); 
-            }
-            30% { 
-                opacity: 1; 
-                transform: translateX(30px) scale(1.1); 
-            }
-            70% { 
-                opacity: 0.7; 
-                transform: translateX(-20px) scale(1.0); 
-            }
-            100% { 
-                opacity: 0; 
-                transform: translateX(60px) scale(0.8); 
-            }
+            0% { opacity: 0.9; transform: translateX(0px) scale(0.8); }
+            30% { opacity: 1; transform: translateX(30px) scale(1.1); }
+            70% { opacity: 0.7; transform: translateX(-20px) scale(1.0); }
+            100% { opacity: 0; transform: translateX(60px) scale(0.8); }
         }
+        
         @media (max-width: 480px) {
-            .stats { gap: 1rem; font-size: 1.2rem; }
-            .stat-number { font-size: 2rem; }
-            #clickButton { width: 220px !important; height: 220px !important; }
-            .goroBurst { width: 80px !important; height: 80px !important; }
+            .stats {
+                gap: 1rem;
+                font-size: 1.2rem;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .clickButton {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            .goroBurst {
+                width: 80px !important;
+                height: 80px !important;
+            }
         }
     </style>
 </head>
 <body>
-    <button id="unmute">🔊 Unmute</button>
+    <button id="unmute">Unmute</button>
     
     <div class="stats">
         <div>
@@ -186,23 +212,22 @@
     
     <!-- Weapon Warning Popup -->
     <div id="weaponWarning">
-        ⚠️ YOUR WEAPON IS WEAK! <br> 
-        <span style="font-size: 18px;">Repair it now!</span>
+        YOUR WEAPON IS WEAK!<br>
+        <span style="font-size: 18px">Repair it now!</span>
     </div>
     
     <!-- Bouncing Repair Powder -->
     <div id="repairPowder"></div>
     
     <audio id="goroSound" preload="auto">
-        <source src="goro_attack1.mp3" type="audio/mpeg">
+        <source src="goroattack1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // ✅ DARK CLOUD WEAPON SYSTEM
-        let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth') || '50');
-        
-        let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
-        let totalClicks = parseInt(localStorage.getItem('goroTotalClicks') || '0');
+        // DARK CLOUD WEAPON SYSTEM
+        let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth')) || 30;
+        let myClicks = parseInt(localStorage.getItem('goroMyClicks')) || 0;
+        let totalClicks = parseInt(localStorage.getItem('goroTotalClicks')) || 0;
         
         const myClicksEl = document.getElementById('myClicks');
         const totalClicksEl = document.getElementById('totalClicks');
@@ -221,11 +246,9 @@
         function updateWeaponHealth() {
             const healthBar = document.getElementById('weaponBar');
             const healthFill = document.getElementById('healthFill');
-            
             healthBar.style.display = 'block';
-            const percent = Math.max(0, (weaponHealth / 30) * 100);
+            const percent = Math.max(0, (weaponHealth / 30)) * 100;
             healthFill.style.width = percent + '%';
-            
             if (percent < 30) {
                 healthFill.style.background = '#ff4444';
             }
@@ -244,7 +267,7 @@
             const burst = document.createElement('img');
             burst.src = 'Goro_2.png';
             burst.className = 'goroBurst';
-            burst.onerror = () => console.log('❌ Goro_2.png NOT FOUND');
+            burst.onerror = () => console.log('Goro_2.png NOT FOUND');
             
             const imgSize = 100;
             const padding = 30;
@@ -258,7 +281,9 @@
             document.body.appendChild(burst);
             
             setTimeout(() => {
-                if (burst.parentNode) burst.parentNode.removeChild(burst);
+                if (burst.parentNode) {
+                    burst.parentNode.removeChild(burst);
+                }
             }, 1200);
         }
         
@@ -273,16 +298,13 @@
             
             function animate() {
                 const rect = powder.getBoundingClientRect();
-                
-                if (rect.left <= 0 || rect.right >= window.innerWidth) directionX *= -1;
-                if (rect.top <= 0 || rect.bottom >= window.innerHeight) directionY *= -1;
+                if (rect.left < 0 || rect.right > window.innerWidth) directionX *= -1;
+                if (rect.top < 0 || rect.bottom > window.innerHeight) directionY *= -1;
                 
                 posX += speed * directionX;
                 posY += speed * directionY;
-                
                 powder.style.left = posX + 'px';
                 powder.style.top = posY + 'px';
-                
                 speed += 0.2; // Accelerates to INSANE speed
                 
                 requestAnimationFrame(animate);
@@ -293,44 +315,43 @@
         function showWeaponWarning() {
             const warning = document.getElementById('weaponWarning');
             const powder = document.getElementById('repairPowder');
-            
             warning.style.display = 'block';
             powder.style.display = 'block';
             powder.style.left = '100px';
             powder.style.top = '100px';
             bounceRepairPowder();
         }
-            
+        
+        // CLICK HANDLER
+        clickButton.addEventListener('click', () => {
             myClicks++;
             totalClicks++;
             weaponHealth--; // Weapon degrades
             
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
+            localStorage.setItem('goroWeaponHealth', weaponHealth.toString());
             
             updateDisplay();
             updateWeaponHealth();
-            
             createGoroBurst();
             
             if (goroSound.duration > 0) {
-                const volume = Math.min(0.1 + (myClicks * 0.015), 1.0);
+                const volume = Math.min(0.1 * Math.sqrt(myClicks * 0.015), 1.0);
                 goroSound.volume = volume;
                 goroSound.currentTime = 0;
                 goroSound.play().catch(() => {});
             }
             
             // Weapon warning at 30 clicks (0 health)
-            if (weaponHealth === 0) {
+            if (weaponHealth <= 0) {
                 showWeaponWarning();
             }
             
-            // Weapon BREAKS at 50 clicks (-20 health)
+            // Weapon BREAKS at 50 clicks (-20 health) - Visual only, clicks continue
             if (weaponHealth <= -20) {
-              // Weapon visually broken but clicks still work
-              clickButton.classList.add('broken');
-              document.getElementById('weaponWarning').innerHTML = 'WEAPON BROKEN!<br><span 
-            style="font-size: 28px">Keep attacking!</span>';
+                clickButton.classList.add('broken');
+                document.getElementById('weaponWarning').innerHTML = 'WEAPON BROKEN!<br><span style="font-size: 28px">Keep attacking!</span>';
             }
         });
         
