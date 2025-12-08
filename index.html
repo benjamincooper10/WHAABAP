@@ -200,7 +200,6 @@
     <script>
         // ✅ DARK CLOUD WEAPON SYSTEM
         let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth') || '50');
-        let weaponBroken = false;
         
         let myClicks = parseInt(localStorage.getItem('goroMyClicks') || '0');
         let totalClicks = parseInt(localStorage.getItem('goroTotalClicks') || '0');
@@ -308,7 +307,6 @@
             
             localStorage.setItem('goroMyClicks', myClicks.toString());
             localStorage.setItem('goroTotalClicks', totalClicks.toString());
-            localStorage.setItem('goroWeaponHealth', weaponHealth.toString());
             
             updateDisplay();
             updateWeaponHealth();
