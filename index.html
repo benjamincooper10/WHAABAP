@@ -137,7 +137,7 @@
             position: fixed;
             width: 60px;
             height: 60px;
-            background-image: url('Repair_Powder1.png');
+            background-image: url('repairpowder.jpg');
             background-size: cover;
             border-radius: 50%;
             pointer-events: none;
@@ -207,7 +207,7 @@
     </div>
     
     <button id="clickButton">
-        <img src="Goro_2.png" alt="Goro" id="goroImg">
+        <img src="Goro2.png" alt="Goro" id="goroImg">
     </button>
     
     <!-- Weapon Warning Popup -->
@@ -226,6 +226,7 @@
     <script>
         // DARK CLOUD WEAPON SYSTEM
         let weaponHealth = parseInt(localStorage.getItem('goroWeaponHealth')) || 30;
+        let weaponBroken = false;
         let myClicks = parseInt(localStorage.getItem('goroMyClicks')) || 0;
         let totalClicks = parseInt(localStorage.getItem('goroTotalClicks')) || 0;
         
@@ -265,9 +266,9 @@
         
         function createGoroBurst() {
             const burst = document.createElement('img');
-            burst.src = 'Goro_2.png';
+            burst.src = 'Goro2.png';
             burst.className = 'goroBurst';
-            burst.onerror = () => console.log('Goro_2.png NOT FOUND');
+            burst.onerror = () => console.log('Goro2.png NOT FOUND');
             
             const imgSize = 100;
             const padding = 30;
@@ -324,6 +325,8 @@
         
         // CLICK HANDLER
         clickButton.addEventListener('click', () => {
+            if (weaponBroken) return; // Disabled clicks when broken
+            
             myClicks++;
             totalClicks++;
             weaponHealth--; // Weapon degrades
@@ -348,10 +351,11 @@
                 showWeaponWarning();
             }
             
-            // Weapon BREAKS at 50 clicks (-20 health) - Visual only, clicks continue
+            // Weapon BREAKS at 50 clicks (-20 health)
             if (weaponHealth <= -20) {
+                weaponBroken = true;
                 clickButton.classList.add('broken');
-                document.getElementById('weaponWarning').innerHTML = 'WEAPON BROKEN!<br><span style="font-size: 28px">Keep attacking!</span>';
+                document.getElementById('weaponWarning').innerHTML = 'WEAPON BROKEN!<br><span style="font-size: 28px">Refresh to repair</span>';
             }
         });
         
